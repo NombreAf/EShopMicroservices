@@ -1,9 +1,3 @@
-using BuildingBlocks.Behaviors;
-using BuildingBlocks.Exceptions.Handler;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using static System.Net.Mime.MediaTypeNames;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
@@ -20,6 +14,9 @@ builder.Services.AddCarter();
 
 builder.Services.AddMarten(opts => { opts.Connection(builder.Configuration.GetConnectionString("Database")!); })
     .UseLightweightSessions();
+
+if (builder.Environment.IsDevelopment())
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
