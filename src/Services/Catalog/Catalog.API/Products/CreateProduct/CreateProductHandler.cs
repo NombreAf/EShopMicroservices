@@ -1,6 +1,4 @@
-﻿
-
-namespace Catalog.API.Products
+﻿namespace Catalog.API.Products
 {
     public record CreateProductCommand(
         string Name,
@@ -12,30 +10,30 @@ namespace Catalog.API.Products
 
     public record CreateProductResult(Guid Id);
 
-    public class CreateProductCommandValidator: AbstractValidator<CreateProductCommand>
+    public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
     {
         public CreateProductCommandValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
             RuleFor(x => x.Description)
-               .NotEmpty().WithMessage("Description is required")
-               .MaximumLength(500).WithMessage("Description must not exceed 500 characters");
+                .NotEmpty().WithMessage("Description is required")
+                .MaximumLength(500).WithMessage("Description must not exceed 500 characters");
 
-            
+
             RuleFor(x => x.Category)
                 .NotEmpty().WithMessage("At least one category is required")
                 .Must(c => c.Count <= 5).WithMessage("A maximum of 5 categories is allowed");
 
-           
+
             RuleFor(x => x.ImageUrl)
                 .NotEmpty().WithMessage("Image URL is required")
                 .Must(uri => Uri.IsWellFormedUriString(uri, UriKind.Absolute))
                 .WithMessage("Invalid image URL format");
 
             RuleFor(x => x.Price)
-             .GreaterThan(0).WithMessage("Price must be greater than 0")
-             .PrecisionScale(18, 2, false) 
-             .WithMessage("Price must have a maximum of 18 digits in total, with up to 2 decimals");
+                .GreaterThan(0).WithMessage("Price must be greater than 0")
+                .PrecisionScale(18, 2, false)
+                .WithMessage("Price must have a maximum of 18 digits in total, with up to 2 decimals");
         }
     }
 

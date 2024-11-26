@@ -31,11 +31,11 @@ namespace Catalog.API.Products.UpdateProduct
         }
     }
 
-    internal class UpdateProductCommandHandler(IDocumentSession session, ILogger<UpdateProductCommandHandler> logger, UpdateProductCommandValidator validator) : ICommandHandler<UpdateProductCommand, UpdateProductResult>
+    internal class UpdateProductCommandHandler(IDocumentSession session, UpdateProductCommandValidator validator) : ICommandHandler<UpdateProductCommand, UpdateProductResult>
     {
         public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            logger.LogInformation("UpdateProductHandler.Handle called with {@Command}", command);
+           
 
            
             var validationResult = await validator.ValidateAsync(command, cancellationToken);
@@ -62,7 +62,7 @@ namespace Catalog.API.Products.UpdateProduct
             session.Update(product);
             await session.SaveChangesAsync(cancellationToken);
 
-            logger.LogInformation("Product with ID {ProductId} successfully updated", command.Id);
+           
             return new UpdateProductResult(true);
         }
     }

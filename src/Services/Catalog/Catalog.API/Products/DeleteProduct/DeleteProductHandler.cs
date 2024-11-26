@@ -17,12 +17,12 @@ namespace Catalog.API.Products.DeleteProduct
     }
 
     internal class DeleteProductCommandHandler
-        (IDocumentSession session, ILogger<DeleteProductCommandHandler> logger, DeleteProductCommandValidator validator)
+        (IDocumentSession session, DeleteProductCommandValidator validator)
         : ICommandHandler<DeleteProductCommand, DeleteProductResult>
     {
         public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
         {
-            logger.LogInformation("DeleteProductCommandHandler.Handle called with {@Command}", command);
+          
 
            
             var validationResult = await validator.ValidateAsync(command, cancellationToken);
@@ -36,7 +36,7 @@ namespace Catalog.API.Products.DeleteProduct
             var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
             if (product is null)
             {
-                logger.LogWarning("Product with ID {ProductId} not found", command.Id);
+               
                 throw new ProductNotFoundException(command.Id);
             }
 
@@ -44,7 +44,7 @@ namespace Catalog.API.Products.DeleteProduct
             session.Delete<Product>(command.Id);
             await session.SaveChangesAsync(cancellationToken);
 
-            logger.LogInformation("Product with ID {ProductId} successfully deleted", command.Id);
+         
             return new DeleteProductResult(true);
         }
     }

@@ -9,8 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(config =>
 {
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    config.RegisterServicesFromAssembly(assembly);
     config.AddOpenBehavior(typeof(ValidateBehavior<,>));
+    config.AddOpenBehavior(typeof(LogginBehavior<,>));
 });
 
 builder.Services.AddValidatorsFromAssembly(assembly);
