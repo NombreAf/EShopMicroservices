@@ -21,6 +21,10 @@ namespace Catalog.API.Products.UpdateProduct
                 .NotEmpty()
                 .WithMessage("Name is required");
 
+            RuleFor(command => command.Description)
+                .NotEmpty()
+                .WithMessage("Description is required");
+            
             RuleFor(command => command.Price)
                 .GreaterThan(0)
                 .WithMessage("Price must be greater than 0");
