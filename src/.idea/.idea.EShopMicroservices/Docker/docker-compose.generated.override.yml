@@ -14,9 +14,9 @@ services:
     image: "basketapi:dev"
     ports: []
     volumes:
-    - "C:\\Users\\nahue\\.nuget\\packages:/home/app/.nuget/packages"
     - "C:\\Users\\nahue\\Desktop\\EShopMicroservices\\src\\Services\\Basket\\Basket.API:/app:rw"
     - "C:\\Users\\nahue\\Desktop\\EShopMicroservices\\src:/src:rw"
+    - "C:\\Users\\nahue\\.nuget\\packages:/home/app/.nuget/packages"
     working_dir: "/app"
   catalog.api:
     build:
@@ -32,7 +32,25 @@ services:
     image: "catalogapi:dev"
     ports: []
     volumes:
-    - "C:\\Users\\nahue\\.nuget\\packages:/home/app/.nuget/packages"
     - "C:\\Users\\nahue\\Desktop\\EShopMicroservices\\src\\Services\\Catalog\\Catalog.API:/app:rw"
     - "C:\\Users\\nahue\\Desktop\\EShopMicroservices\\src:/src:rw"
+    - "C:\\Users\\nahue\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
+  discount.grpc:
+    build:
+      context: "C:\\Users\\nahue\\Desktop\\EShopMicroservices\\src"
+      dockerfile: "Services/Discount/Discount.gRPC/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/Discount.gRPC.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "discountgrpc:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\nahue\\Desktop\\EShopMicroservices\\src\\Services\\Discount\\Discount.gRPC:/app:rw"
+    - "C:\\Users\\nahue\\Desktop\\EShopMicroservices\\src:/src:rw"
+    - "C:\\Users\\nahue\\.nuget\\packages:/home/app/.nuget/packages"
     working_dir: "/app"
