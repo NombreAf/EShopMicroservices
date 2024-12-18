@@ -398,7 +398,10 @@ FodyWeavers.xsd
 *.sln.iml
 
 
+
 # Excluir archivos temporales de base de datos
-*.shm
-*.db
+src/Services/Discount/Discount.gRPC/*.shm
+src/Services/Discount/Discount.gRPC/*.db-wal
+src/Services/Discount/Discount.gRPC/*.db-shm
+
 
