@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+# Excluir archivos temporales de base de datos
+*.shm
+*.db
+
